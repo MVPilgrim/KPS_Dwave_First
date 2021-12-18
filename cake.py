@@ -36,7 +36,7 @@ def parse_solution(sampleset):
     best = feasible_sampleset.first
 
     print("Found best solution at energy {}\n".format(best.energy))
-    //print("Selected item numbers (0-indexed): \n", selected_item_indices)
+    #print("Selected item numbers (0-indexed): \n", selected_item_indices)
 
 
 def main():
@@ -45,6 +45,7 @@ def main():
 
     filename = "cake.csv"
     f, e, b, s = parse_inputs(filename)
+    i = Integer('i');
 
     cqm = build_cqm(f,e,b,s)
 
