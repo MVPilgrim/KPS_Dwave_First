@@ -29,7 +29,7 @@ def build_cqm(f,e,b,s):
 def parse_solution(sampleset):
 
     print("parse_solution() entered.")
-    print(sample.first)
+    print(sampleset.first)
     
     feasible_sampleset = sampleset.filter(lambda row: row.is_feasible)
 
