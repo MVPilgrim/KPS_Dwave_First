@@ -27,7 +27,10 @@ def build_cqm(f,e,b,s):
 
 
 def parse_solution(sampleset):
-   
+
+    print("parse_solution() entered.")
+    print(sample.first)
+    
     feasible_sampleset = sampleset.filter(lambda row: row.is_feasible)
 
     if not len(feasible_sampleset):
@@ -35,7 +38,7 @@ def parse_solution(sampleset):
 
     best = feasible_sampleset.first
 
-    print("Found best solution at energy {}\n".format(best.energy))
+    print("Found best solution: {}\n".format(best))
     #print("Selected item numbers (0-indexed): \n", selected_item_indices)
 
 
