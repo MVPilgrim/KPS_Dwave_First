@@ -44,8 +44,11 @@ def main():
     sampler = LeapHybridCQMSampler()
 
     filename = "cake.csv"
-    f, e, b, s = parse_inputs(filename)
-    i = Integer('i');
+    #f, e, b, s = parse_inputs(filename)
+    f = Integer('f')
+    e = Integer('e')
+    b = Integer('b')
+    s = Integer('s')
 
     cqm = build_cqm(f,e,b,s)
 
