@@ -1,28 +1,32 @@
 
 from dimod import ConstrainedQuadraticModel, Integer
+from dwave.system import LeapHybridCQMSampler
 import pandas as pd
 
 
-def parse_inputs(data_file, capacity):
+def parse_inputs(data_file):
     df = pd.read_csv(data_file, names=['cost'])
 
     return df['cost']
 
 
-def build_cqm(costs):
+def build_cqm(f,e,b,s):
     
-    num_items = len(costs)
-    print("\nBuilding a CQM for {} items.".format(str(num_items)))
+    print("\nBuilding the CQM.\n")
 
     cqm = ConstrainedQuadraticModel()
 
-    cqm.add_constraint(2*i+2*j <= 8, "Max perimeter")
-    cqm.add_constraint(constraint, sense="<=", rhs=max_weight, label='capacity')
+    cqm.set_objective((f + e + b + s) * -1)
+
+    cqm.add_constraint(f + e + b + s == 700, "Total amt. in gredients")
+    cqm.add_constraint(b - 0.5 * s == 0, "Reduce butter and sugar.")
+    cqm.add_constraint(f + e <= 450, "Flour plus eggs.")
+    cqm.add_constraint(e + b <= 300, "Eggs plus butter.")
 
     return cqm
 
 
-def parse_solution(sampleset, costs, weights):
+def parse_solution(sampleset):
    
     feasible_sampleset = sampleset.filter(lambda row: row.is_feasible)
 
@@ -31,28 +35,23 @@ def parse_solution(sampleset, costs, weights):
 
     best = feasible_sampleset.first
 
-    selected_item_indices = [key for key, val in best.sample.items() if val==1.0]
-    selected_weights = list(weights.loc[selected_item_indices])
-    selected_costs = list(costs.loc[selected_item_indices])
-
-    print("\nFound best solution at energy {}".format(best.energy))
-    print("\nSelected item numbers (0-indexed):", selected_item_indices)
-    print("\nSelected item weights: {}, total = {}".format(selected_weights, sum(selected_weights)))
-    print("\nSelected item costs: {}, total = {}".format(selected_costs, sum(selected_costs)))
+    print("Found best solution at energy {}\n".format(best.energy))
+    //print("Selected item numbers (0-indexed): \n", selected_item_indices)
 
 
-def main(filename, capacity):
+def main():
 
     sampler = LeapHybridCQMSampler()
 
-    costs, weights, capacity = parse_inputs(filename, capacity)
+    filename = "cake.csv"
+    f, e, b, s = parse_inputs(filename)
 
-    cqm = build_cqm(costs)
+    cqm = build_cqm(f,e,b,s)
 
     print("Submitting CQM to solver {}.".format(sampler.solver.name))
-    sampleset = sampler.sample_cqm(cqm, label='Example - Knapsack')
+    sampleset = sampler.sample_cqm(cqm, label='Bake a Cake')
 
-    parse_solution(sampleset, costs, weights)
+    parse_solution(sampleset)
 
 if __name__ == '__main__':
     main()
