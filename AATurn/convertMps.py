@@ -3,6 +3,9 @@ import sys
 
 from dimod import ConstrainedQuadraticModel, Integer
 from dwave.system import LeapHybridCQMSampler
+
+import numpy  as numpy
+import scipy  as sp
 import pandas as pd
 
 
