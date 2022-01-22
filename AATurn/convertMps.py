@@ -11,9 +11,8 @@ def parse_inputs(data_file):
 
 
 
-def main(argv):
+def main(filename):
 
-    filename = argv[1]
     print("filename: ",filename)
     
 
