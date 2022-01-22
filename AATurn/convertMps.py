@@ -1,4 +1,6 @@
 
+import sys
+
 from dimod import ConstrainedQuadraticModel, Integer
 from dwave.system import LeapHybridCQMSampler
 import pandas as pd
@@ -13,8 +15,8 @@ def parse_inputs(data_file):
 
 def main(filename):
 
-    print("filename: ",filename)
+    print("filename: ",filename[0])
     
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main(sys.argv[1:])
