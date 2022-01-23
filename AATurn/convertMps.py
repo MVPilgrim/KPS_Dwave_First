@@ -10,12 +10,9 @@ import pandas as pd
 
 
 def parse_mps(data_file):
-    with open() as f:
+    with open(data_file) as f:
         for line in f:
-            if line != "":
-                print(line)
-            else:
-                print("End of file")
+            print(line.replace("\n",""))
 
 
 
