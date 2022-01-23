@@ -10,7 +10,7 @@ import pandas as pd
 
 
 def parse_mps(data_file):
-    with open('workfile') as f:
+    with open() as f:
         for line in f:
             if line != "":
                 print(line)
@@ -19,9 +19,13 @@ def parse_mps(data_file):
 
 
 
-def main(filename):
-    print("filename: ",filename[0])
-    parse_mps(filename[0])
+def main(argv):
+    if not argv:
+        filename = "LPWikiPediaExample.mps"
+    else:
+        filename = argv[0]
+    print("filename: ",filename)
+    parse_mps(filename)
     
 
 if __name__ == '__main__':
