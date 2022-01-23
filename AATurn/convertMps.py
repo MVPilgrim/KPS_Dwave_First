@@ -13,6 +13,7 @@ def parse_mps(data_file):
     with open('workfile') as f:
         for line in f:
             if line != "":
+                print(line)
             else:
                 print("End of file")
 
