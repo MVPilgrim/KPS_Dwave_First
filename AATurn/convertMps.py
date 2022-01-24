@@ -11,7 +11,7 @@ import pandas as pd
 
 def parse_mps(data_file):
     callRows = False
-    callCols = False
+    callColumnss = False
     callRhs  = False
     callBounds = False
 
@@ -23,10 +23,10 @@ def parse_mps(data_file):
                 callRows = True
             elif callRows:
                 processRows(line)
-            if line == "COLS":
-                callCols = True
+            if line == "COLUMNS":
+                callColumnss = True
             elif callCols:
-                processCols(line)
+                processColumns(line)
              if line == "RHS":
                 callRhs = True
             elif callRhs:
@@ -36,9 +36,19 @@ def parse_mps(data_file):
             elif callBounds:
                 processBounds(line)
             elif line == "ENDATA"
+                print("End of file.")
 
 def processRows(line):
     print("processRows line: ",line)
+
+def processColumns(line):
+    print("processColumns line: ",line)
+
+def processRhs(line):
+    print("processRhs line: ",line)
+
+def processBounds(line):
+    print("processBounds line: ",line)
 
 def main(argv):
     if not argv:
