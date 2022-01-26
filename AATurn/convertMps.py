@@ -48,6 +48,7 @@ def parse_mps(data_file):
 
 def processRows(line):
     print("processRows line: ",line)
+    leConstraintNames = []
     wl = line.split(" ")
 
     if wl[1] == 'N':
@@ -55,7 +56,7 @@ def processRows(line):
         print("processRows() objFuncName: ",objFuncName)
     elif wl[1] == 'L':
         leConstraintNames.append(wl[3])
-        print(leConstraints)
+        print(leConstraintNames)
 
 def processColumns(line):
     print("processColumns line: ",line)
