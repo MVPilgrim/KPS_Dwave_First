@@ -9,6 +9,12 @@ import scipy  as sp
 import pandas as pd
 
 
+objFuncName = ""
+leConstraintNames = []
+geConstraintNames = []
+eqConstraintNames = []
+
+
 def parse_mps(data_file):
     callRows    = False
     callColumns = False
@@ -48,7 +54,6 @@ def parse_mps(data_file):
 
 def processRows(line):
     print("processRows line: ",line)
-    leConstraintNames = []
     wl = line.split(" ")
 
     if wl[1] == 'N':
@@ -57,6 +62,14 @@ def processRows(line):
     elif wl[1] == 'L':
         leConstraintNames.append(wl[3])
         print(leConstraintNames)
+    elif wl[1] == 'G':
+        geConstraintNames.append(wl[3])
+        print(leConstraintNames)
+    elif wl[1] == 'E':
+        eqConstraintNames.append(wl[3])
+        print(leConstraintNames)
+    else:
+        print("Invalid row type: " + wl[1])
 
 def processColumns(line):
     print("processColumns line: ",line)
