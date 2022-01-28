@@ -10,6 +10,7 @@ import pandas as pd
 
 
 objFuncName = ""
+objFuncVarNamesAndCoeffs = {}
 leConstraintNames = []
 geConstraintNames = []
 eqConstraintNames = []
@@ -69,10 +70,18 @@ def processRows(line):
         eqConstraintNames.append(wl[3])
         print(leConstraintNames)
     else:
-        print("Invalid row type: " + wl[1])
+        print("Invalid ROW type: ", wl[1])
 
 def processColumns(line):
-    print("processColumns line: ",line)
+    print("processColumns() line: ",line)
+    wl = line.split()
+    print("processColumns() wl ",wl)
+
+    if wl[1] == 'COST':
+        objFuncVarNamesAndCoeffs[wl[0]] = wl[2]
+        print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
+    else:
+        print("Invalid COLUMN type: ", wl)
 
 def processRhs(line):
     print("processRhs line: ",line)
