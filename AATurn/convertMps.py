@@ -10,10 +10,18 @@ import pandas as pd
 
 
 objFuncName = ""
-objFuncVarNamesAndCoeffs = {}
-leConstraintNames = []
-geConstraintNames = []
-eqConstraintNames = []
+objFuncVarNamesAndCoeffs   = {}
+
+allConstraintNamesAndMaps  = {}
+
+leConstraintNamesAndCoeffs = {}
+leConstraintNamesAndRHS    = {}
+
+eqConstraintNamesAndCoeffs = {}
+eqConstraintNamesAndRHS    = {}
+
+geConstraintNamesAndCoeffs = {}
+geConstraintNamesAndRHS    = {}
 
 
 def parse_mps(data_file):
@@ -55,18 +63,19 @@ def parse_mps(data_file):
 
 def processRows(line):
     print("processRows line: ",line)
-    wl = line.split(" ")
+    wl = line.split()
 
-    if wl[1] == 'N':
+    if wl[0] == 'N':
         objFuncName = wl[3]
         print("processRows() objFuncName: ",objFuncName)
-    elif wl[1] == 'L':
-        leConstraintNames.append(wl[3])
+    elif wl[0] == 'L':
+        
+        allConstraintNamesAndMaps
         print(leConstraintNames)
-    elif wl[1] == 'G':
+    elif wl[0] == 'G':
         geConstraintNames.append(wl[3])
         print(leConstraintNames)
-    elif wl[1] == 'E':
+    elif wl[0] == 'E':
         eqConstraintNames.append(wl[3])
         print(leConstraintNames)
     else:
@@ -79,7 +88,13 @@ def processColumns(line):
 
     if wl[1] == 'COST':
         objFuncVarNamesAndCoeffs[wl[0]] = wl[2]
+        if wl.count == 5:
+            try:
+                wlimMap = allConstraintNamesAndMaps[wl[3]]
+                wlimMap
+
         print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
+    elif wl[1] == ''
     else:
         print("Invalid COLUMN type: ", wl)
 
