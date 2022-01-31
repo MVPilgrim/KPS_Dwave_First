@@ -61,6 +61,13 @@ def parse_mps(data_file):
                 callBounds = False
                 print("End of file.")
 
+def addConstraintVal(constraintName,val):
+    ws = allConstraintNames.get(constraintName,"xxx")
+    if ws != "xxx":
+        ws[constraintName] = val
+    else:
+         print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
+
 def processRows(line):
     print("processRows line: ",line)
     wl = line.split()
@@ -87,10 +94,12 @@ def processColumns(line):
     print("processColumns() wl ",wl)
 
     if wl[1] == 'COST':
+        # wl: dvarName[0],"COST"[1],val[2][,Constraint name[3], constraint val[4]]
         objFuncVarNamesAndCoeffs[wl[0]] = wl[2]
         if wl.count == 5:
             try:
-                wlimMap = allConstraintNamesAndMaps[wl[3]]
+                
+                
                 wlimMap
 
         print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
