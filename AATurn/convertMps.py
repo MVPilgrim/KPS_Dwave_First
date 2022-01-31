@@ -94,10 +94,11 @@ def processColumns(line):
         objFuncVarNamesAndCoeffs[wl[0]] = wl[2]
         if wl.count == 5:
             try:
-                addConstraintVal([wl[3],wl[0],wl[2])
+                addConstraintVal(wl[3],wl[0],wl[4])
             except:
                 print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
-    if wl[1] == 'COST':
+    elif wl[1] == 'COST':
+        xxx = 1
     else:
         print("Invalid COLUMN type: ", wl)
 
