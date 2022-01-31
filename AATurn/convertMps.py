@@ -61,10 +61,10 @@ def parse_mps(data_file):
                 callBounds = False
                 print("End of file.")
 
-def addConstraintVal(constraintName,val):
+def addConstraintVal(constraintName,varName,val):
     ws = allConstraintNames.get(constraintName,"xxx")
     if ws != "xxx":
-        ws[constraintName] = val
+        ws[constraintName][varName] = val
     else:
          print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
 
@@ -73,18 +73,14 @@ def processRows(line):
     wl = line.split()
 
     if wl[0] == 'N':
-        objFuncName = wl[3]
+        objFuncName = wl[1]
         print("processRows() objFuncName: ",objFuncName)
     elif wl[0] == 'L':
-        
-        allConstraintNamesAndMaps
         print(leConstraintNames)
     elif wl[0] == 'G':
-        geConstraintNames.append(wl[3])
-        print(leConstraintNames)
+        print(geConstraintNames)
     elif wl[0] == 'E':
-        eqConstraintNames.append(wl[3])
-        print(leConstraintNames)
+        print(eqConstraintNames)
     else:
         print("Invalid ROW type: ", wl[1])
 
@@ -98,12 +94,10 @@ def processColumns(line):
         objFuncVarNamesAndCoeffs[wl[0]] = wl[2]
         if wl.count == 5:
             try:
-                
-                
-                wlimMap
-
-        print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
-    elif wl[1] == ''
+                addConstraintVal([wl[3],wl[0],wl[2])
+            except:
+                print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
+    if wl[1] == 'COST':
     else:
         print("Invalid COLUMN type: ", wl)
 
