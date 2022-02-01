@@ -76,11 +76,11 @@ def processRows(line):
         objFuncName = wl[1]
         print("processRows() objFuncName: ",objFuncName)
     elif wl[0] == 'L':
-        print(leConstraintNames)
+        print(leConstraintNamesAndCoeffs)
     elif wl[0] == 'G':
-        print(geConstraintNames)
+        print(geConstraintNamesAndCoeffs)
     elif wl[0] == 'E':
-        print(eqConstraintNames)
+        print(eqConstraintNamesAndCoeffs)
     else:
         print("Invalid ROW type: ", wl[1])
 
