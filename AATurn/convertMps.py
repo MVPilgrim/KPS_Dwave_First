@@ -5,6 +5,7 @@ from dimod import ConstrainedQuadraticModel, Integer
 from dwave.system import LeapHybridCQMSampler
 
 import numpy  as numpy
+
 import scipy  as sp
 import pandas as pd
 
@@ -12,7 +13,7 @@ import pandas as pd
 objFuncName = ""
 objFuncVarNamesAndCoeffs   = {}
 
-allConstraintNamesAndMaps  = {}
+allConstraintNamesAndLists  = {}
 
 leConstraintNamesAndCoeffs = {}
 leConstraintNamesAndRHS    = {}
@@ -62,11 +63,13 @@ def parse_mps(data_file):
                 print("End of file.")
 
 def addConstraintVal(constraintName,varName,val):
-    ws = allConstraintNamesAndMaps.get(constraintName,"xxx")
+    # Map: constraint name and corresponding array: [constraint type,[[var name,value]]]
+    ws = allConstraintNamesAndLists.get(constraintName,"xxx")
     if ws != "xxx":
-        ws[constraintName][varName] = val
+        varvalList = ws[0,0]
+        print("varvalLIst: ",varvalList)
     else:
-         print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
+        print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
 
 def processRows(line):
     print("processRows line: ",line)
@@ -76,11 +79,12 @@ def processRows(line):
         objFuncName = wl[1]
         #print("processRows() objFuncName: ",objFuncName)
     elif wl[0] == 'L':
-        #print(leConstraintNamesAndCoeffs)
+        allConstraintNamesAndLists = {wl[1]:[]}
+        print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
     elif wl[0] == 'G':
-        #print(geConstraintNamesAndCoeffs)
+        x=0
     elif wl[0] == 'E':
-        #print(eqConstraintNamesAndCoeffs)
+        x=0
     else:
         print("Invalid ROW type: ", wl[1])
 
@@ -92,13 +96,14 @@ def processColumns(line):
     if wl[1] == 'COST':
         # wl: dvarName[0],"COST"[1],val[2][,Constraint name[3], constraint val[4]]
         objFuncVarNamesAndCoeffs[wl[0]] = wl[2]
-        if wl.count == 5:
+        print("ProcessColumns(): wl.count(): ",len(wl))
+        if len(wl) == 5: 
             try:
                 addConstraintVal(wl[3],wl[0],wl[4])
                 print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
             except:
                 print("processColumns() objFuncVarNamesAndCoeffs: EXCEPT")
-    elif wl[1] == 'COST':
+    elif wl[1] != "":
         xxx = 1
     else:
         print("Invalid COLUMN type: ", wl)
