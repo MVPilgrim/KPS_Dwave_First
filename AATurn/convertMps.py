@@ -78,15 +78,10 @@ def processRows(line):
     if wl[0] == 'N':
         objFuncName = wl[1]
         #print("processRows() objFuncName: ",objFuncName)
-    elif wl[0] == 'L':
-        allConstraintNamesAndLists = {wl[1]:[]}
-        print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
-    elif wl[0] == 'G':
-        x=0
-    elif wl[0] == 'E':
-        x=0
     else:
-        print("Invalid ROW type: ", wl[1])
+        #allConstraintNamesAndLists = {wl[1]:[]}
+        allConstraintNamesAndLists[wl[1]] = [wl[0],[]]
+        print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
 
 def processColumns(line):
     print("processColumns() line: ",line)
