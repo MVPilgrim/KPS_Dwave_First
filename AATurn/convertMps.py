@@ -65,9 +65,11 @@ def parse_mps(data_file):
 def addConstraintVal(constraintName,varName,val):
     # Map: constraint name and corresponding array: [constraint type,[[var name,value]]]
     ws = allConstraintNamesAndLists.get(constraintName,"xxx")
+    print("addConstraintVal(): ws: ",ws)
     if ws != "xxx":
-        varvalList = ws[0,0]
+        varvalList = ws[1]
         print("varvalLIst: ",varvalList)
+        #varvalList = varvalList ???
     else:
         print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
 
@@ -95,11 +97,10 @@ def processColumns(line):
         if len(wl) == 5: 
             try:
                 addConstraintVal(wl[3],wl[0],wl[4])
-                print("processColumns() objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
             except:
-                print("processColumns() objFuncVarNamesAndCoeffs: EXCEPT")
+                print("processColumns() addConstraintVal(wl[3],wl[0],wl[4]): EXCEPT")
     elif wl[1] != "":
-        xxx = 1
+        addConstraintVal(wl[1],wl[0],wl[2])
     else:
         print("Invalid COLUMN type: ", wl)
 
