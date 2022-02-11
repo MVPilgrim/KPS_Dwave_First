@@ -67,9 +67,10 @@ def addConstraintVal(constraintName,varName,val):
     ws = allConstraintNamesAndLists.get(constraintName,"xxx")
     print("addConstraintVal(): ws: ",ws)
     if ws != "xxx":
-        varvalList = ws[1]
+        varvalList = ws + [[varName,val]]
         print("varvalLIst: ",varvalList)
-        #varvalList = varvalList ???
+        allConstraintNamesAndLists[constraintName] = varvalList
+        print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
     else:
         print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
 
@@ -82,7 +83,7 @@ def processRows(line):
         #print("processRows() objFuncName: ",objFuncName)
     else:
         #allConstraintNamesAndLists = {wl[1]:[]}
-        allConstraintNamesAndLists[wl[1]] = [wl[0],[]]
+        allConstraintNamesAndLists[wl[1]] = [wl[0]]
         print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
 
 def processColumns(line):
