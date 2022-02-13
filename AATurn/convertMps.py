@@ -15,14 +15,7 @@ objFuncVarNamesAndCoeffs   = {}
 
 allConstraintNamesAndLists  = {}
 
-leConstraintNamesAndCoeffs = {}
-leConstraintNamesAndRHS    = {}
-
-eqConstraintNamesAndCoeffs = {}
-eqConstraintNamesAndRHS    = {}
-
-geConstraintNamesAndCoeffs = {}
-geConstraintNamesAndRHS    = {}
+rhsConstraintsAndValues    = {}
 
 
 def parse_mps(data_file):
@@ -50,6 +43,13 @@ def parse_mps(data_file):
                 callRhs = False
                 callBounds = True
                 continue
+            elif line == "ENDATA":
+                callBounds = False
+                print("End of file.")
+                print("obj func name: ",objFuncName)
+                print("objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
+                print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
+                print("rhsConstraintsAndValues: ",rhsConstraintsAndValues)
             elif callRows:
                 processRows(line)
             elif callColumns:
@@ -58,9 +58,7 @@ def parse_mps(data_file):
                 processRhs(line)
             elif callBounds:
                 processBounds(line)
-            elif line == "ENDATA":
-                callBounds = False
-                print("End of file.")
+            
 
 def addConstraintVal(constraintName,varName,val):
     # Map: constraint name and corresponding array: [constraint type,[[var name,value]]]
@@ -80,7 +78,7 @@ def processRows(line):
 
     if wl[0] == 'N':
         objFuncName = wl[1]
-        #print("processRows() objFuncName: ",objFuncName)
+        print("processRows() objFuncName: ",objFuncName)
     else:
         #allConstraintNamesAndLists = {wl[1]:[]}
         allConstraintNamesAndLists[wl[1]] = [wl[0]]
@@ -107,6 +105,17 @@ def processColumns(line):
 
 def processRhs(line):
     print("processRhs line: ",line)
+    wl = line.split()
+    print("processColumns() array: ",wl)
+
+    rhsConstraintsAndValues[wl[1]] = wl[2]
+
+    if len(wl) == 5: 
+        try:
+            rhsConstraintsAndValues[wl[3]] = wl[4]
+        except:
+            print("processRhs() rhsConstraintsAndValues[wl[3]] = wl[4]: EXCEPT")
+
 
 def processBounds(line):
     print("processBounds line: ",line)
