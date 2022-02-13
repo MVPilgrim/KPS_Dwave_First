@@ -13,9 +13,12 @@ import pandas as pd
 objFuncName = ""
 objFuncVarNamesAndCoeffs   = {}
 
-allConstraintNamesAndLists  = {}
+allConstraintNamesAndLists = {}
 
 rhsConstraintsAndValues    = {}
+
+upBoundsAndValues          = {}
+loBoundsAndValues          = {}
 
 
 def parse_mps(data_file):
@@ -45,6 +48,7 @@ def parse_mps(data_file):
                 continue
             elif line == "ENDATA":
                 callBounds = False
+                processEndata()
                 print("End of file.")
                 print("obj func name: ",objFuncName)
                 print("objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
@@ -119,6 +123,27 @@ def processRhs(line):
 
 def processBounds(line):
     print("processBounds line: ",line)
+    wl = line.split()
+    print("processBounds() array: ",wl)
+
+    # [constraint type,[[var name,value]]]
+    if wl[0] == 'UP':
+        upVars = list(upBoundsandValues[wl[1]])
+        upBoundsAndValues[wl[1]] = upVars + [wl[2],wl[3]]
+    elif wl[0] == 'LO':
+        loVars = list(upBoundsandValues[wl[1]])
+        loBoundsAndValues[wl[1]] = loVars + [wl[2],wl[3]]
+    else:
+        print("Invalid BOUNDS type: ", wl)
+    
+def processEndata():
+    print("End of file.")
+    print("obj func name: ",objFuncName)
+    print("objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
+    print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
+    print("rhsConstraintsAndValues: ",rhsConstraintsAndValues)
+    print("upBoundsAndValues: ",upBoundsAndValues)
+    print("loBoundsAndValues: ",loBoundsAndValues)
 
 def main(argv):
     if not argv:
