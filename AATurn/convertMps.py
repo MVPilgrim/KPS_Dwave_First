@@ -10,7 +10,7 @@ import scipy  as sp
 import pandas as pd
 
 
-objFuncName = ""
+
 objFuncVarNamesAndCoeffs   = {}
 
 allConstraintNamesAndLists = {}
@@ -19,6 +19,8 @@ rhsConstraintsAndValues    = {}
 
 upBoundsAndValues          = {}
 loBoundsAndValues          = {}
+
+objectiveFunction = "fdsa"
 
 
 def parse_mps(data_file):
@@ -72,10 +74,12 @@ def processRows(line):
     wl = line.split()
 
     if wl[0] == 'N':
-        objFuncName = wl[1]
-        print("objFuncName,wl[1]: ",objFuncName,",",wl[1])
+        #print("first objectiveFunction ref: ",objectiveFunction)
+        objectiveFunction = wl[1]
+        print("objectiveFunction,wl[1]: ",objectiveFunction,",",wl[1])
     else:
         #allConstraintNamesAndLists = {wl[1]:[]}
+        print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
         allConstraintNamesAndLists[wl[1]] = [wl[0]]
 
 def processColumns(line):
@@ -127,7 +131,7 @@ def processBounds(line):
     
 def processEndata():
     print("\nEnd of file.")
-    print("obj func name: ",objFuncName)
+    print("obj func name: ",objectiveFunction)
     print("objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
     print("allConstraintNamesAndLists: ",allConstraintNamesAndLists)
     print("rhsConstraintsAndValues: ",rhsConstraintsAndValues)
