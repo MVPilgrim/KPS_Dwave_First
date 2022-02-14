@@ -138,6 +138,16 @@ def processEndata():
     print("upBoundsAndValues: ",upBoundsAndValues)
     print("loBoundsAndValues: ",loBoundsAndValues)
 
+def createLinprogInput():
+
+    linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
+    allConstraintNamesAndLists
+rhsConstraintsAndValues    = {}
+upBoundsAndValues          = {}
+loBoundsAndValues          = {}
+
+
+
 def main(argv):
     if not argv:
         filename = "LPWikiPediaExample.mps"
@@ -145,6 +155,8 @@ def main(argv):
         filename = argv[0]
     print("filename: ",filename)
     parse_mps(filename)
+
+    createLinprogInput()
     
 
 if __name__ == '__main__':
