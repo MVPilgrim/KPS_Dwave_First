@@ -152,9 +152,9 @@ def createLinprogInput():
     for value in allConstraintNamesAndLists.values():
         print("value: ",value)
         if value[0] == "L":
-            for value2 in value[1]:
+            for value2 in value[1:]:
                 print("value2: ",value2)
-                linprogIneq = linprogIneq + list(value2[1:][1])
+                linprogIneq = linprogIneq + list(value2[1])
     print("linprogIneq: ",linprogIneq)
 
 #rhsConstraintsAndValues    = {}
