@@ -22,6 +22,11 @@ loBoundsAndValues          = {}
 
 objectiveFunction = "fdsa"
 
+linprogObjFuncCoeffs = []
+linprogIneq = []
+linprogEq   = []
+
+
 
 def parse_mps(data_file):
     callRows    = False
@@ -139,12 +144,22 @@ def processEndata():
     print("loBoundsAndValues: ",loBoundsAndValues)
 
 def createLinprogInput():
+    linprogIneq = []
+    linprogEq   = []
 
     linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
-    allConstraintNamesAndLists
-rhsConstraintsAndValues    = {}
-upBoundsAndValues          = {}
-loBoundsAndValues          = {}
+    # [constraint type,[[var name,value]]]
+    for value in allConstraintNamesAndLists.values():
+        print("value: ",value)
+        if value[0] == "L":
+            for value2 in value[1]:
+                print("value2: ",value2)
+                linprogIneq = linprogIneq + list(value2[1:][1])
+    print("linprogIneq: ",linprogIneq)
+
+#rhsConstraintsAndValues    = {}
+#upBoundsAndValues          = {}
+#loBoundsAndValues          = {}
 
 
 
