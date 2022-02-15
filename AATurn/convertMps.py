@@ -153,8 +153,22 @@ def createLinprogInput():
         print("value: ",value)
         if value[0] == "L":
             for value2 in value[1:]:
-                print("value2: ",value2)
+                print("Lvalue2: ",value2)
                 linprogIneq = linprogIneq + list(value2[1])
+        elif value[0] == "G":
+            for value2 in value[1:]:
+                print("Gvalue2: ",value2)
+                coeff = value2[1] * -1
+                print("Gcoeff: ",coeff)
+                linprogIneq = linprogIneq + list(coeff)
+        elif value[0] == "E":
+            for value2 in value[1:]:
+                print("Evalue2: ",value2)
+                linprogIneq = linprogIneq + list(value2[1])
+        else:
+            print("createLinprogInput(): invalid constraint type: ",value[0])
+
+
     print("linprogIneq: ",linprogIneq)
 
 #rhsConstraintsAndValues    = {}
