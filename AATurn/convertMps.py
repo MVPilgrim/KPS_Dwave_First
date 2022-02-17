@@ -175,11 +175,15 @@ def createLinprogInput():
     print("linprogIneq: ",linprogIneq)
     print("linprogEq: ",linprogEq)
 
-#rhsConstraintsAndValues    = {}
-#upBoundsAndValues          = {}
-#loBoundsAndValues          = {}
+def runLinprog():
+    #opt = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq,
+... #              A_eq=lhs_eq, b_eq=rhs_eq, bounds=bnd,
+... #              method="revised simplex")
 
 
+opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogIneq, b_ub=rhs_ineq,
+...               A_eq=linprogEq, b_eq=rhs_eq, bounds=bnd,
+...               method="revised simplex")
 
 def main(argv):
     if not argv:
@@ -190,7 +194,7 @@ def main(argv):
     parse_mps(filename)
 
     createLinprogInput()
-    
+    runLinprog()
 
 if __name__ == '__main__':
     main(sys.argv[1:])
