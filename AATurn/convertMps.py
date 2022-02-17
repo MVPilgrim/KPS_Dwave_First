@@ -25,6 +25,8 @@ objectiveFunction = "fdsa"
 linprogObjFuncCoeffs = []
 linprogIneq = []
 linprogEq   = []
+linprogRhs  = []
+linprogBnds = []
 
 
 
@@ -144,8 +146,8 @@ def processEndata():
     print("loBoundsAndValues: ",loBoundsAndValues)
 
 def createLinprogInput():
-    linprogIneq = []
-    linprogEq   = []
+    #linprogIneq = []
+    #linprogEq   = []
 
     linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
     # [constraint type,[[var name,value]]]
