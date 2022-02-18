@@ -42,11 +42,15 @@ def forDocstrings():
     
     Map with sublists.
     allConstraintNamesAndLists:  {'LIM1': ['L', ['XONE', '1'], ['YTWO', '1']], 'LIM2': ['G', ['XONE', '1'], ['ZTHREE', '1']], 'MYEQN': ['E', ['YTWO', '-1'], ['ZTHREE', '1']]}
-      MPS file Columns limit coeffs.
+      MPS file Columns 
+        constraints coeffs.
+        LIM1, LIM2, MYEQN
                                                   XONE 1
                                                                                                XONE 1
                                                                  YTWO 1
                                                                                                               ZTHREE 1
+                                                                                                                                              YTWO -1
+                                                                                                                                                              ZTHREE 1
     
     """
 
