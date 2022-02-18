@@ -172,7 +172,8 @@ def createLinprogInput():
 
     #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
     linprogRhs = list(rhsConstraintsAndValues.values)
-    for value in ():
+    for bndKey in (loBoundsAndValues.keys):
+        
     linprogBnds = list(bn)
 
     print("linprogIneq: ",linprogIneq)
