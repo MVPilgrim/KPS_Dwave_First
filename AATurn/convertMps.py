@@ -33,7 +33,11 @@ linprogBnds = []
 
 def forDocstrings():
     """
-
+    objFuncVarNamesAndCoeffs:  {'XONE': '1', 'YTWO': '4', 'ZTHREE': '9'}
+      MPS file Columns
+                                 XONE COST 1
+                                              YTWO COST 4
+                                                           ZTHREE COST 9
     """
 
     x=0
