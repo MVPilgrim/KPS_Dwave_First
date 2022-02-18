@@ -9,6 +9,11 @@ import scipy  as sp
 
 
 objFuncVarNamesAndCoeffs   = {}
+"""
+objFuncVarNamesAndCoeffs
+XONE      COST                 1   LIM1                 1
+
+"""
 
 allConstraintNamesAndLists = {}
 
@@ -26,6 +31,12 @@ linprogRhs  = []
 linprogBnds = []
 
 
+def forDocstrings():
+    """
+
+    """
+
+    x=0
 
 def parse_mps(data_file):
     callRows    = False
@@ -134,6 +145,7 @@ def processBounds(line):
         print("Invalid BOUNDS type: ", wl)
     
 def processEndata():
+    """ processEndata() DOCSTRING."""
     print("\nEnd of file.")
     print("obj func name: ",objectiveFunction)
     print("objFuncVarNamesAndCoeffs: ",objFuncVarNamesAndCoeffs)
@@ -171,23 +183,26 @@ def createLinprogInput():
             print("createLinprogInput(): invalid constraint type: ",value[0])
 
     #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
-    linprogRhs = list(rhsConstraintsAndValues.values)
-    for bndKey in (loBoundsAndValues.keys):
+    #linprogRhs = list(rhsConstraintsAndValues.values)
+    #for bndKey in (loBoundsAndValues.keys):
         
-    linprogBnds = list(bn)
+    #linprogBnds = list(bn)
 
-    print("linprogIneq: ",linprogIneq)
-    print("linprogEq: ",linprogEq)
+    #print("linprogIneq: ",linprogIneq)
+    #print("linprogEq: ",linprogEq)
+    #print("linprogRhs: ",linprogRhs)
+    #print("linprogBnds: ",linprogBnds)
 
 def runLinprog():
     #opt = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq,
-... #              A_eq=lhs_eq, b_eq=rhs_eq, bounds=bnd,
-... #              method="revised simplex")
+    #              A_eq=lhs_eq, b_eq=rhs_eq, bounds=bnd,
+    #              method="revised simplex")
 
 
-opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogIneq, b_ub=rhs_ineq,
-...               A_eq=linprogEq, b_eq=rhs_eq, bounds=bnd,
-...               method="revised simplex")
+    #opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogIneq, b_ub=rhs_ineq,
+    #    A_eq=linprogEq, b_eq=rhs_eq, bounds=bnd,
+    #    method="revised simplex")
+    xx = 0
 
 def main(argv):
     if not argv:
