@@ -33,11 +33,21 @@ linprogBnds = []
 
 def forDocstrings():
     """
+    Map
     objFuncVarNamesAndCoeffs:  {'XONE': '1', 'YTWO': '4', 'ZTHREE': '9'}
-      MPS file Columns
+      MPS file Columns: COST coeffs.
                                  XONE COST 1
                                               YTWO COST 4
                                                            ZTHREE COST 9
+    
+    Map with sublists.
+    allConstraintNamesAndLists:  {'LIM1': ['L', ['XONE', '1'], ['YTWO', '1']], 'LIM2': ['G', ['XONE', '1'], ['ZTHREE', '1']], 'MYEQN': ['E', ['YTWO', '-1'], ['ZTHREE', '1']]}
+      MPS file Columns limit coeffs.
+                                                  XONE 1
+                                                                                               XONE 1
+                                                                 YTWO 1
+                                                                                                              ZTHREE 1
+    
     """
 
     x=0
