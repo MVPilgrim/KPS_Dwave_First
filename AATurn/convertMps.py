@@ -1,14 +1,11 @@
 
 import sys
-
-from dimod import ConstrainedQuadraticModel, Integer
-from dwave.system import LeapHybridCQMSampler
-
 import numpy  as numpy
-
 import scipy  as sp
-import pandas as pd
 
+#from dimod import ConstrainedQuadraticModel, Integer
+#from dwave.system import LeapHybridCQMSampler
+#import pandas as pd
 
 
 objFuncVarNamesAndCoeffs   = {}
@@ -131,7 +128,7 @@ def processBounds(line):
         if loBoundsAndValues.__len__() <= 0:
             loVars = ["LO"]
         else:
-            loVars = list(upBoundsAndValues[wl[1]])
+            loVars = list(loBoundsAndValues[wl[1]])
         loBoundsAndValues[wl[1]] = loVars + [[wl[2],wl[3]]]
     else:
         print("Invalid BOUNDS type: ", wl)
@@ -173,6 +170,10 @@ def createLinprogInput():
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
 
+    #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
+    linprogRhs = list(rhsConstraintsAndValues.values)
+    for value in ():
+    linprogBnds = list(bn)
 
     print("linprogIneq: ",linprogIneq)
     print("linprogEq: ",linprogEq)
