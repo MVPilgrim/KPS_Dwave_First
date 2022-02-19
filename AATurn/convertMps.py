@@ -45,13 +45,29 @@ def forDocstrings():
       MPS file Columns 
         constraints coeffs.
         LIM1, LIM2, MYEQN
-                                                  XONE 1
-                                                                                               XONE 1
-                                                                 YTWO 1
-                                                                                                              ZTHREE 1
-                                                                                                                                              YTWO -1
-                                                                                                                                                              ZTHREE 1
+                                                  XONE    1
+                                                                                               XONE    1
+                                                                 YTWO    1
+                                                                                                              ZTHREE    1 
+                                                                                                                                              YTWO     -1
+                                                                                                                                                              ZTHREE     1
     
+
+    map
+    rhsConstraintsAndValues:  {'LIM1': '5', 'LIM2': '10', 'MYEQN': '7'}
+      MPS "RHS" entries         LIM1    5   
+        LIM1, LIM2, MYEQN                    LIM2    10
+                                                           MYEQN    7
+
+    
+    upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
+      MPS upper limits on                 XONE    4                    
+      variable values.                                   YTWO    1
+    
+    loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
+    MPS lower limits on                   YTWO    -1
+      variable values.
+
     """
 
     x=0
