@@ -154,6 +154,7 @@ def processColumns(line):
 def processRhs(line):
     wl = line.split()
 
+    rhs = 
     rhsConstraintsAndValues[wl[1]] = wl[2]
 
     if len(wl) == 5: 
@@ -220,7 +221,8 @@ def createLinprogInput():
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
 
-        #for value in rhsConstraintsAndValues.values():
+        for rhsConstraintValue in rhsConstraintsAndValues.values():
+            
 
     #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
     #linprogRhs = list(rhsConstraintsAndValues.values)
