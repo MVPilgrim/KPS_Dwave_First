@@ -25,9 +25,13 @@ loBoundsAndValues          = {}
 objectiveFunction = "fdsa"
 
 linprogObjFuncCoeffs = []
-linprogIneq = []
-linprogEq   = []
-linprogRhs  = []
+
+linprogLhsIneq = []
+linprogLhsEq   = []
+
+linprogRhsIneq = []
+linprogLhsEq   = []
+
 linprogBnds = []
 
 
@@ -215,6 +219,8 @@ def createLinprogInput():
                 linprogEq.append(int(value2[1]))
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
+
+        #for value in rhsConstraintsAndValues.values():
 
     #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
     #linprogRhs = list(rhsConstraintsAndValues.values)
