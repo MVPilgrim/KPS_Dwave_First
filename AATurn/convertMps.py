@@ -234,10 +234,12 @@ def createLinprogInput():
     linprogRhs = list(rhsConstraintsAndValues.values())
     print("linprogRhs: ",linprogRhs)
 
+    # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
     for bndKey in (loBoundsAndValues.keys):
         bndArray1 = loBoundAndValues.get(bndKey)
         for bndArray2 in bndArray1[1:]:
+
             
         
     #linprogBnds = list(bn)
