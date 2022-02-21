@@ -236,10 +236,19 @@ def createLinprogInput():
 
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
-    for bndKey in (loBoundsAndValues.keys):
-        bndArray1 = loBoundAndValues.get(bndKey)
-        for bndArray2 in bndArray1[1:]:
-
+    for loBndKey in (loBoundsAndValues.keys):
+        loBndArray1 = loBoundAndValues.get(loBndKey)
+        for loBndArray2 in loBndArray1[1:]:
+            costVar = loBndArray2[0]
+            loBnd   = loBndArray2[1]
+            upBnd = 0
+            upBndArray1 = upBoundAndValues.get(loBndKey)
+            for upBndArray2 in upBndArray1[1:]:
+                if costVar == upBndArray2[0]:
+                    upBnd = upBndArray2[1]
+                    break
+            if upBnd == 0:
+                upBnd = float("inf")
             
         
     #linprogBnds = list(bn)
