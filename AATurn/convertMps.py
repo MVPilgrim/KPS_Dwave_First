@@ -252,14 +252,14 @@ def createLinprogInput():
                 upBnd = float("inf")
     for upBndKey in (upBoundsAndValues.keys()):
         upBndArray1 = upBoundsAndValues.get(upBndKey)
-            for upBndArray2 in upBndArray1[1:]:
-                costVar = upBndArray2[0]
-                upBnd   = upBndArray2[1]
-                if costVar == upBndArray2[0]:
-                    upBnd = upBndArray2[1]
-                    break
-            if upBnd == 0:
-                upBnd = float("inf")
+        for upBndArray2 in upBndArray1[1:]:
+            costVar = upBndArray2[0]
+            upBnd   = upBndArray2[1]
+            if costVar == upBndArray2[0]:
+                upBnd = upBndArray2[1]
+                break
+        if upBnd == 0:
+            upBnd = float("inf")
             
         
     #linprogBnds = list(bn)
