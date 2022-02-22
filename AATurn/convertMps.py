@@ -250,16 +250,21 @@ def createLinprogInput():
                     break
             if upBnd == 0:
                 upBnd = float("inf")
+            # Add bounds to lingprog bounds.
     for upBndKey in (upBoundsAndValues.keys()):
         upBndArray1 = upBoundsAndValues.get(upBndKey)
         for upBndArray2 in upBndArray1[1:]:
             costVar = upBndArray2[0]
             upBnd   = upBndArray2[1]
-            if costVar == upBndArray2[0]:
-                upBnd = upBndArray2[1]
-                break
-        if upBnd == 0:
-            upBnd = float("inf")
+            loBndArray1 = loBoundsAndValues.get(upBndKey)
+            # Look in the upper bound map for a value for the same cost variable.
+            for loBndArray2 in loBndArray1[1:]:
+                if costVar == loBndArray2[0]:
+                    loBnd = loBndArray2[1]
+                    break
+            if loBnd == 0:
+                upBnd = float("inf")
+            # Add bounds to lingprog bounds.
             
         
     #linprogBnds = list(bn)
