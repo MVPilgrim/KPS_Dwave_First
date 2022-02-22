@@ -243,13 +243,18 @@ def createLinprogInput():
             loBnd   = loBndArray2[1]
             upBnd = 0
             upBndArray1 = upBoundsAndValues.get(loBndKey)
+            # Look in the upper bound map for a value for the same cost variable.
             for upBndArray2 in upBndArray1[1:]:
                 if costVar == upBndArray2[0]:
                     upBnd = upBndArray2[1]
                     break
             if upBnd == 0:
                 upBnd = float("inf")
-            for loBndArray2 in upBndArray1[1:]:
+    for upBndKey in (upBoundsAndValues.keys()):
+        upBndArray1 = upBoundsAndValues.get(upBndKey)
+            for upBndArray2 in upBndArray1[1:]:
+                costVar = upBndArray2[0]
+                upBnd   = upBndArray2[1]
                 if costVar == upBndArray2[0]:
                     upBnd = upBndArray2[1]
                     break
