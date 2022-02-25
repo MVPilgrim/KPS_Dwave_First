@@ -128,7 +128,7 @@ def processRows(line):
 
     if wl[0] == 'N':
         #print("first objectiveFunction ref: ",objectiveFunction)
-        objectiveFunction = wl[1]
+        global objectiveFunction = wl[1]
         print("objectiveFunction,wl[1]: ",objectiveFunction,",",wl[1])
     else:
         #allConstraintNamesAndLists = {wl[1]:[]}
@@ -257,21 +257,21 @@ def createLinprogInput():
             costVar = upBndArray2[0]
             upBnd   = upBndArray2[1]
             loBndArray1 = loBoundsAndValues.get(upBndKey)
-            # Look in the upper bound map for a value for the same cost variable.
+            # Look in the lower bound map for a value for the same cost variable.
             for loBndArray2 in loBndArray1[1:]:
                 if costVar == loBndArray2[0]:
                     loBnd = loBndArray2[1]
                     break
-            if loBnd == 0:
-                upBnd = float("inf")
-            # Add bounds to lingprog bounds.
-            
+    
+    # Add bounds to lingprog bounds.
+    global linprogBnds = []
+    linprogBnds.append((loBnd,upBnd))        
         
     #linprogBnds = list(bn)
 
     #print("linprogIneq: ",linprogIneq)
-    #print("linprogEq: ",linprogEq)
-    #print("linprogRhs: ",linprogRhs)
+    #print("linprogEq: ",  linprogEq)
+    #print("linprogRhs: ", linprogRhs)
     #print("linprogBnds: ",linprogBnds)
 
 def runLinprog():
