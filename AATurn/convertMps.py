@@ -124,11 +124,13 @@ def addConstraintVal(constraintName,varName,val):
         print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
 
 def processRows(line):
+    global objectiveFunction = ""
+
     wl = line.split()
 
     if wl[0] == 'N':
         #print("first objectiveFunction ref: ",objectiveFunction)
-        global objectiveFunction = wl[1]
+        objectiveFunction = wl[1]
         print("objectiveFunction,wl[1]: ",objectiveFunction,",",wl[1])
     else:
         #allConstraintNamesAndLists = {wl[1]:[]}
@@ -195,6 +197,8 @@ def processEndata():
 
 
 def createLinprogInput():
+    global linprogObjFuncCoeffs = []
+
     global linprogIneq = []
     global linprogEq   = []
 
@@ -203,7 +207,10 @@ def createLinprogInput():
 
     global linprogRhs = [] # Correct?
 
-    global linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
+    global linprogBnds = []
+
+
+    linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
     # [constraint type,[[var name,value]]]
     for value in allConstraintNamesAndLists.values():
         print("value: ",value)
@@ -234,7 +241,7 @@ def createLinprogInput():
 
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
-    
+
     # Process lower bounds.
     for loBndKey in (loBoundsAndValues.keys()):
         loBndArray1 = loBoundsAndValues.get(loBndKey)
@@ -264,7 +271,7 @@ def createLinprogInput():
                     break
     
     # Add bounds to lingprog bounds.
-    global linprogBnds = []
+    
     linprogBnds.append((loBnd,upBnd))        
 
     print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
