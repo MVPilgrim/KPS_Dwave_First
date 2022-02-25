@@ -195,15 +195,15 @@ def processEndata():
 
 
 def createLinprogInput():
-    linprogIneq = []
-    linprogEq   = []
+    global linprogIneq = []
+    global linprogEq   = []
 
-    linprogRhsIneq = []
-    linprogRhsEq   = []
+    global linprogRhsIneq = []
+    global linprogRhsEq   = []
 
-    linprogRhs = [] # Correct?
+    global linprogRhs = [] # Correct?
 
-    linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
+    global linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
     # [constraint type,[[var name,value]]]
     for value in allConstraintNamesAndLists.values():
         print("value: ",value)
@@ -226,8 +226,6 @@ def createLinprogInput():
                 linprogEq.append(int(value2[1]))
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
-
-        #for rhsConstraintValue in rhsConstraintsAndValues.values():
             
 
     #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
@@ -236,6 +234,8 @@ def createLinprogInput():
 
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
+    
+    # Process lower bounds.
     for loBndKey in (loBoundsAndValues.keys()):
         loBndArray1 = loBoundsAndValues.get(loBndKey)
         for loBndArray2 in loBndArray1[1:]:
@@ -250,7 +250,7 @@ def createLinprogInput():
                     break
             if upBnd == 0:
                 upBnd = float("inf")
-            # Add bounds to lingprog bounds.
+    # Process upper bounds.
     for upBndKey in (upBoundsAndValues.keys()):
         upBndArray1 = upBoundsAndValues.get(upBndKey)
         for upBndArray2 in upBndArray1[1:]:
@@ -266,13 +266,12 @@ def createLinprogInput():
     # Add bounds to lingprog bounds.
     global linprogBnds = []
     linprogBnds.append((loBnd,upBnd))        
-        
-    #linprogBnds = list(bn)
 
-    #print("linprogIneq: ",linprogIneq)
-    #print("linprogEq: ",  linprogEq)
-    #print("linprogRhs: ", linprogRhs)
-    #print("linprogBnds: ",linprogBnds)
+    print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
+    print("linprogIneq: ",linprogIneq)
+    print("linprogEq: ",  linprogEq)
+    print("linprogRhs: ", linprogRhs)
+    print("linprogBnds: ",linprogBnds)
 
 def runLinprog():
     #opt = linprog(c=obj, A_ub=lhs_ineq, b_ub=rhs_ineq,
