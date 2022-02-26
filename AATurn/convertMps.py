@@ -9,12 +9,6 @@ import scipy  as sp
 
 
 objFuncVarNamesAndCoeffs   = {}
-"""
-objFuncVarNamesAndCoeffs
-XONE      COST                 1   LIM1                 1
-
-"""
-
 allConstraintNamesAndLists = {}
 
 rhsConstraintsAndValues    = {}
@@ -124,7 +118,7 @@ def addConstraintVal(constraintName,varName,val):
         print("addConstraintVal(): constraintName not in all constraints: ",constraintName)
 
 def processRows(line):
-    global objectiveFunction = ""
+    global objectiveFunction
 
     wl = line.split()
 
@@ -156,7 +150,6 @@ def processColumns(line):
 def processRhs(line):
     wl = line.split()
 
-    
     rhsConstraintsAndValues[wl[1]] = wl[2]
 
     if len(wl) == 5: 
@@ -197,18 +190,8 @@ def processEndata():
 
 
 def createLinprogInput():
-    global linprogObjFuncCoeffs = []
-
-    global linprogIneq = []
-    global linprogEq   = []
-
-    global linprogRhsIneq = []
-    global linprogRhsEq   = []
-
-    global linprogRhs = [] # Correct?
-
-    global linprogBnds = []
-
+    global linprogObjFuncCoeffs
+    global linprogRhs
 
     linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
     # [constraint type,[[var name,value]]]
@@ -217,20 +200,20 @@ def createLinprogInput():
         if value[0] == "L":
             for value2 in value[1:]:
                 print("Lvalue2: ",value2)
-                #linprogIneq = linprogIneq + list(value2[1])
-                linprogIneq.append(int(value2[1]))
+                #linprogLhsIneq = linprogLhsIneq + list(value2[1])
+                linprogLhsIneq.append(int(value2[1]))
         elif value[0] == "G":
             for value2 in value[1:]:
                 print("Gvalue2: ",value2)
                 coeff = int(value2[1]) * -1
                 print("Gcoeff: ",coeff)
-                #linprogIneq = linprogIneq + list(str(coeff))
-                linprogIneq.append(coeff)
+                #linprogLhsIneq = linprogLhsIneq + list(str(coeff))
+                linprogLhsIneq.append(coeff)
         elif value[0] == "E":
             for value2 in value[1:]:
                 print("Evalue2: ",value2)
-                #linprogEq = linprogEq + list(value2[1])
-                linprogEq.append(int(value2[1]))
+                #linprogLhsEq = linprogLhsEq + list(value2[1])
+                linprogLhsEq.append(int(value2[1]))
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
             
@@ -275,8 +258,8 @@ def createLinprogInput():
     linprogBnds.append((loBnd,upBnd))        
 
     print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
-    print("linprogIneq: ",linprogIneq)
-    print("linprogEq: ",  linprogEq)
+    print("linprogLhsIneq: ",linprogLhsIneq)
+    print("linprogLhsEq: ",  linprogLhsEq)
     print("linprogRhs: ", linprogRhs)
     print("linprogBnds: ",linprogBnds)
 
@@ -286,8 +269,8 @@ def runLinprog():
     #              method="revised simplex")
 
 
-    #opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogIneq, b_ub=rhs_ineq,
-    #    A_eq=linprogEq, b_eq=rhs_eq, bounds=bnd,
+    #opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogLhsIneq, b_ub=rhs_ineq,
+    #    A_eq=linprogLhsEq, b_eq=rhs_eq, bounds=bnd,
     #    method="revised simplex")
     xx = 0
 
