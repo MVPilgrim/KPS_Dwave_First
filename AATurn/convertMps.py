@@ -220,7 +220,6 @@ def createLinprogInput():
 
     #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
     linprogRhs = list(rhsConstraintsAndValues.values())
-    print("linprogRhs: ",linprogRhs)
 
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
@@ -237,9 +236,13 @@ def createLinprogInput():
             for upBndArray2 in upBndArray1[1:]:
                 if costVar == upBndArray2[0]:
                     upBnd = upBndArray2[1]
+                    # Add bounds to lingprog bounds. 
+                    linprogBnds.append((loBnd,upBnd))        
                     break
             if upBnd == 0:
                 upBnd = float("inf")
+                # Add bounds to lingprog bounds. 
+                linprogBnds.append((loBnd,upBnd)) 
     # Process upper bounds.
     for upBndKey in (upBoundsAndValues.keys()):
         upBndArray1 = upBoundsAndValues.get(upBndKey)
@@ -250,14 +253,14 @@ def createLinprogInput():
             # Look in the lower bound map for a value for the same cost variable.
             for loBndArray2 in loBndArray1[1:]:
                 if costVar == loBndArray2[0]:
-                    loBnd = loBndArray2[1]
-                    break
-    
-    # Add bounds to lingprog bounds.
-    
-    linprogBnds.append((loBnd,upBnd))        
+                    continue
+                else:
+                    linprogBnds.append((0,upBnd))
 
-    print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
+    
+    
+
+    print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs.values())
     print("linprogLhsIneq: ",linprogLhsIneq)
     print("linprogLhsEq: ",  linprogLhsEq)
     print("linprogRhs: ", linprogRhs)
