@@ -193,22 +193,24 @@ def createLinprogInput():
     global linprogObjFuncCoeffs
     global linprogRhs
 
-    linprogObjFuncCoeffs = objFuncVarNamesAndCoeffs.values()
+    linprogObjFuncCoeffs = list(objFuncVarNamesAndCoeffs.values())
     # [constraint type,[[var name,value]]]
     for value in allConstraintNamesAndLists.values():
         print("value: ",value)
         if value[0] == "L":
+            wrkConstraintValues = []
             for value2 in value[1:]:
                 print("Lvalue2: ",value2)
-                #linprogLhsIneq = linprogLhsIneq + list(value2[1])
-                linprogLhsIneq.append(int(value2[1]))
+                wrkConstraintValues.append(int(value2[1]))
+            linprogLhsIneq.append(wrkConstraintValues)
         elif value[0] == "G":
+            wrkConstraintValues = []
             for value2 in value[1:]:
                 print("Gvalue2: ",value2)
                 coeff = int(value2[1]) * -1
                 print("Gcoeff: ",coeff)
-                #linprogLhsIneq = linprogLhsIneq + list(str(coeff))
-                linprogLhsIneq.append(coeff)
+                wrkConstraintValues.append(coeff)
+            linprogLhsIneq.append(wrkConstraintValues)
         elif value[0] == "E":
             for value2 in value[1:]:
                 print("Evalue2: ",value2)
@@ -257,10 +259,7 @@ def createLinprogInput():
                 else:
                     linprogBnds.append((0,upBnd))
 
-    
-    
-
-    print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs.values())
+    print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
     print("linprogLhsIneq: ",linprogLhsIneq)
     print("linprogLhsEq: ",  linprogLhsEq)
     print("linprogRhs: ", linprogRhs)
