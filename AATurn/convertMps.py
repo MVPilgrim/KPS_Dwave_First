@@ -236,7 +236,7 @@ def createLinprogInput():
             print("loBndArray2: ",loBndArray2)
             loBndArray2 = loBndArray2[1]
             print("loBndArray2: ",loBndArray2)
-            for loBndArray3 in upBndArray2:
+            for loBndArray3 in loBndArray2:
                 if loBndArray3[0] == costKey:
                     loBnd   = loBndArray3[1]
                     break
