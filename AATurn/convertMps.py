@@ -226,38 +226,24 @@ def createLinprogInput():
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
 
-    # Process lower bounds.
-    for loBndKey in (loBoundsAndValues.keys()):
-        loBndArray1 = loBoundsAndValues.get(loBndKey)
+    # Process cost variables in order.
+    for costKey in objFuncVarNamesAndCoeffs.keys()):
+        loBnd = 0
+        upBnd = float("inf")
+        # Process lower bounds.
+        loBndArray1 = loBoundsAndValues.values
         for loBndArray2 in loBndArray1[1:]:
-            costVar = loBndArray2[0]
-            loBnd   = loBndArray2[1]
-            upBnd = 0
-            upBndArray1 = upBoundsAndValues.get(loBndKey)
-            # Look in the upper bound map for a value for the same cost variable.
-            for upBndArray2 in upBndArray1[1:]:
-                if costVar == upBndArray2[0]:
-                    upBnd = upBndArray2[1]
-                    # Add bounds to lingprog bounds. 
-                    linprogBnds.append((loBnd,upBnd))        
-                    break
-            if upBnd == 0:
-                upBnd = float("inf")
-                # Add bounds to lingprog bounds. 
-                linprogBnds.append((loBnd,upBnd)) 
-    # Process upper bounds.
-    for upBndKey in (upBoundsAndValues.keys()):
-        upBndArray1 = upBoundsAndValues.get(upBndKey)
+            if loBndArray2[0] == costKey:
+                loBnd   = loBndArray2[1]
+                break
+        # Process upper bounds.
+        upBndArray1 = upBoundsAndValues.values()
         for upBndArray2 in upBndArray1[1:]:
-            costVar = upBndArray2[0]
-            upBnd   = upBndArray2[1]
-            loBndArray1 = loBoundsAndValues.get(upBndKey)
-            # Look in the lower bound map for a value for the same cost variable.
-            for loBndArray2 in loBndArray1[1:]:
-                if costVar == loBndArray2[0]:
-                    continue
-                else:
-                    linprogBnds.append((0,upBnd))
+            if upBndArray2[0] == costKey:
+                upBnd   = upBndArray2[1]
+                break
+                    
+        linprogBnds.append((loBnd,upBnd))
 
     print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
     print("linprogLhsIneq: ",linprogLhsIneq)
