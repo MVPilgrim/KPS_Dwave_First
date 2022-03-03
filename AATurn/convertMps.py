@@ -244,7 +244,7 @@ def createLinprogInput():
                 upBnd   = upBndArray2[1][1]
                 break
 
-        if loBnd == float("inf") and upBnd == -float("inf"):
+        if not(loBnd == float("inf") and upBnd == -float("inf")):
             if loBnd == float("inf"):
                 loBnd = int(0)
             if upBnd == -float("inf"):
