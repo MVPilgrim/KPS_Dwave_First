@@ -228,8 +228,8 @@ def createLinprogInput():
 
     # Process cost variables in order.
     for costKey in objFuncVarNamesAndCoeffs.keys():
-        loBnd = 0
-        upBnd = float("inf")
+        loBnd = float(inf)
+        upBnd = -float("inf")
         # Process lower bounds.
         loBndArray1 = list(loBoundsAndValues.values())
         for loBndArray2 in loBndArray1[0:]:
@@ -243,8 +243,13 @@ def createLinprogInput():
             if upBndArray2[1][0] == costKey:
                 upBnd   = upBndArray2[1][1]
                 break
-                    
-        linprogBnds.append((loBnd,upBnd))
+
+        if (!(loBnd == float(inf) && upBnd == -float(inf))):
+            if loBnd == float(inf):
+                loBnd = int(0)
+            if upBnd == -float(inf):
+                upBnd = float(inf)
+            linprogBnds.append((loBnd,upBnd))
 
     print("linprogObjFuncCoeffs: ",linprogObjFuncCoeffs)
     print("linprogLhsIneq: ",linprogLhsIneq)
