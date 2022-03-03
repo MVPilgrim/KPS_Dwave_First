@@ -227,20 +227,21 @@ def createLinprogInput():
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
 
     # Process cost variables in order.
-    for costKey in objFuncVarNamesAndCoeffs.keys()):
+    for costKey in objFuncVarNamesAndCoeffs.keys():
         loBnd = 0
         upBnd = float("inf")
         # Process lower bounds.
-        loBndArray1 = loBoundsAndValues.values
-        for loBndArray2 in loBndArray1[1:]:
-            if loBndArray2[0] == costKey:
-                loBnd   = loBndArray2[1]
+        loBndArray1 = list(loBoundsAndValues.values())
+        for loBndArray2 in loBndArray1[0:]:
+            print("loBndArray2: ",loBndArray2)
+            if loBndArray2[1][0] == costKey:
+                loBnd   = loBndArray2[1][1]
                 break
         # Process upper bounds.
-        upBndArray1 = upBoundsAndValues.values()
-        for upBndArray2 in upBndArray1[1:]:
-            if upBndArray2[0] == costKey:
-                upBnd   = upBndArray2[1]
+        upBndArray1 = list(upBoundsAndValues.values())
+        for upBndArray2 in upBndArray1[0:]:
+            if upBndArray2[1][0] == costKey:
+                upBnd   = upBndArray2[1][1]
                 break
                     
         linprogBnds.append((loBnd,upBnd))
