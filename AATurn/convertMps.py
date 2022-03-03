@@ -240,7 +240,10 @@ def createLinprogInput():
         # Process upper bounds.
         upBndArray1 = list(upBoundsAndValues.values())
         for upBndArray2 in upBndArray1[0:]:
+            print("upBndArray2: ",upBndArray2)
             if upBndArray2[1][0] == costKey:
+                print("upBndArray2[1][0]",upBndArray2[1][0])
+                 print("upBndArray2[1][1]",upBndArray2[1][1])
                 upBnd   = upBndArray2[1][1]
                 break
 
