@@ -226,7 +226,7 @@ def createLinprogInput():
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
 
-    # Process cost variables in order.
+    # Set bounds by processing cost variables in order.
     for costKey in objFuncVarNamesAndCoeffs.keys():
         loBnd = float("inf")
         upBnd = -float("inf")
@@ -236,20 +236,20 @@ def createLinprogInput():
             print("loBndArray2: ",loBndArray2)
             loBndArray2 = loBndArray2[1]
             print("loBndArray2: ",loBndArray2)
-            for loBndArray3 in loBndArray2:
-                if loBndArray3[0] == costKey:
-                    loBnd   = loBndArray3[1]
-                    break
+            if loBndArray2[0] == costKey:
+                loBnd   = loBndArray2[1]
+                print("loBnd: ",loBnd)
+                break
         # Process upper bounds.
         upBndArray1 = list(upBoundsAndValues.values())
         for upBndArray2 in upBndArray1:
             print("upBndArray2: ",upBndArray2)
             upBndArray2 = upBndArray2[1]
             print("upBndArray2: ",upBndArray2)
-            for upBndArray3 in upBndArray2:
-                if upBndArray3[0] == costKey:
-                    upBnd   = upBndArray3[1]
-                    break
+            if upBndArray2[0] == costKey:
+                upBnd   = upBndArray2[1]
+                print("upBnd: ",upBnd)
+                break
 
         if not(loBnd == float("inf") and upBnd == -float("inf")):
             if loBnd == float("inf"):
