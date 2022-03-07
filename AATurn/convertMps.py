@@ -279,7 +279,6 @@ def runLinprog():
     #opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogLhsIneq, b_ub=rhs_ineq,
     #    A_eq=linprogLhsEq, b_eq=rhs_eq, bounds=bnd,
     #    method="revised simplex")
-    xx = 0
 
 def main(argv):
     if not argv:
