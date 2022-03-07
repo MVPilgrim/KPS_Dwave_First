@@ -231,27 +231,31 @@ def createLinprogInput():
         loBnd = float("inf")
         upBnd = -float("inf")
         # Process lower bounds.
-        loBndArray1 = list(loBoundsAndValues.values())
+        loBndArray1 = loBoundsAndValues.values()
         print("loBndArray1: ",loBndArray1)
         for loBndArray2 in loBndArray1:
             print("loBndArray2: ",loBndArray2)
-            loBndArray2 = loBndArray2[1]
+            #loBndArray2 = loBndArray2[1]
+            loBndArray2 = list(loBndArray2)
             print("loBndArray2: ",loBndArray2)
-            if loBndArray2[0] == costKey:
-                loBnd   = loBndArray2[1]
-                print("loBnd: ",loBnd)
-                #break
+            for loBndArray3 in loBndArray2:
+                if loBndArray3[0] == costKey:
+                    loBnd   = loBndArray3[1]
+                    print("loBnd: ",loBnd)
+                    #break
         # Process upper bounds.
-        upBndArray1 = list(upBoundsAndValues.values())
+        upBndArray1 = upBoundsAndValues.values()
         print("upBndArray1: ",upBndArray1)
         for upBndArray2 in upBndArray1:
             print("upBndArray2: ",upBndArray2)
-            upBndArray2 = upBndArray2[1]
+            #upBndArray2 = upBndArray2[1]
+            upBndArray2 = list(upBndArray2)
             print("upBndArray2: ",upBndArray2)
-            if upBndArray2[0] == costKey:
-                upBnd   = upBndArray2[1]
-                print("upBnd: ",upBnd)
-                #break
+            for upBndArray3 in upBndArray2:
+                if upBndArray3[0] == costKey:
+                    upBnd   = upBndArray3[1]
+                    print("upBnd: ",upBnd)
+                    #break
 
         if not(loBnd == float("inf") and upBnd == -float("inf")):
             if loBnd == float("inf"):
