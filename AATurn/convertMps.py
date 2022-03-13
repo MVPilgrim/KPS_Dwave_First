@@ -193,15 +193,21 @@ def createLinprogInput():
     global linprogObjFuncCoeffs
     global linprogRhs
 
+    # Set left and right-hand sides of constraints.
+    # Set list of cost coefficients.
     linprogObjFuncCoeffs = list(objFuncVarNamesAndCoeffs.values())
+    
     # [constraint type,[[var name,value]]]
-    for value in allConstraintNamesAndLists.values():
+    for key in allConstraintNamesAndLists.keys():
+        print ("key: ",key)
+        value = allConstraintNamesAndLists.get(key)
         print("value: ",value)
         if value[0] == "L":
             wrkConstraintValues = []
             for value2 in value[1:]:
                 print("Lvalue2: ",value2)
                 wrkConstraintValues.append(int(value2[1]))
+                linprogRhsIneq.append(int(value2[2]))
             linprogLhsIneq.append(wrkConstraintValues)
         elif value[0] == "G":
             wrkConstraintValues = []
@@ -210,18 +216,16 @@ def createLinprogInput():
                 coeff = int(value2[1]) * -1
                 print("Gcoeff: ",coeff)
                 wrkConstraintValues.append(coeff)
+                linprogRhsIneq.append(int(value2[2]))
             linprogLhsIneq.append(wrkConstraintValues)
         elif value[0] == "E":
             for value2 in value[1:]:
                 print("Evalue2: ",value2)
                 #linprogLhsEq = linprogLhsEq + list(value2[1])
                 linprogLhsEq.append(int(value2[1]))
+                linprogRhsEq.append(int(value2[2]))
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
-            
-
-    #rhsConstraintsAndValues: dict. key=constraint name, value is array of coefficients.
-    linprogRhs = list(rhsConstraintsAndValues.values())
 
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
@@ -279,6 +283,8 @@ def runLinprog():
     #opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogLhsIneq, b_ub=rhs_ineq,
     #    A_eq=linprogLhsEq, b_eq=rhs_eq, bounds=bnd,
     #    method="revised simplex")
+
+    x = 0
 
 def main(argv):
     if not argv:
