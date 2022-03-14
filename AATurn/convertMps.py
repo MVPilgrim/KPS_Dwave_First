@@ -284,9 +284,9 @@ def runLinprog():
     #              method="revised simplex")
 
 
-    #opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogLhsIneq, b_ub=rhs_ineq,
-    #    A_eq=linprogLhsEq, b_eq=rhs_eq, bounds=bnd,
-    #    method="revised simplex")
+    opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogLhsIneq, b_ub=linprogRhsIneq,
+        A_eq=linprogLhsEq, b_eq=linprogRhsEq, bounds=linprogBnds,
+        method="revised simplex")
 
     x = 0
 
