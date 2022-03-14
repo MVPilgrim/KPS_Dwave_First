@@ -2,6 +2,7 @@
 import sys
 import numpy  as numpy
 import scipy  as sp
+from scipy.optimize import linprog
 
 #from dimod import ConstrainedQuadraticModel, Integer
 #from dwave.system import LeapHybridCQMSampler
@@ -283,12 +284,12 @@ def runLinprog():
     #              A_eq=lhs_eq, b_eq=rhs_eq, bounds=bnd,
     #              method="revised simplex")
 
-
     opt = linprog(c=linprogObjFuncCoeffs, A_ub=linprogLhsIneq, b_ub=linprogRhsIneq,
         A_eq=linprogLhsEq, b_eq=linprogRhsEq, bounds=linprogBnds,
         method="revised simplex")
+    print("opt: ",opt)
 
-    x = 0
+    #x = 0
 
 def main(argv):
     if not argv:
