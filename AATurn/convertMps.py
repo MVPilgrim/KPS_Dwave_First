@@ -207,7 +207,8 @@ def createLinprogInput():
             for value2 in value[1:]:
                 print("Lvalue2: ",value2)
                 wrkConstraintValues.append(int(value2[1]))
-                linprogRhsIneq.append(int(value2[2]))
+                rhsValue = rhsConstraintsAndValues.get(key)
+                linprogRhsIneq.append(int(rhsValue))
             linprogLhsIneq.append(wrkConstraintValues)
         elif value[0] == "G":
             wrkConstraintValues = []
@@ -216,14 +217,16 @@ def createLinprogInput():
                 coeff = int(value2[1]) * -1
                 print("Gcoeff: ",coeff)
                 wrkConstraintValues.append(coeff)
-                linprogRhsIneq.append(int(value2[2]))
+                rhsValue = rhsConstraintsAndValues.get(key)
+                linprogRhsIneq.append(int(rhsValue))
             linprogLhsIneq.append(wrkConstraintValues)
         elif value[0] == "E":
             for value2 in value[1:]:
                 print("Evalue2: ",value2)
                 #linprogLhsEq = linprogLhsEq + list(value2[1])
                 linprogLhsEq.append(int(value2[1]))
-                linprogRhsEq.append(int(value2[2]))
+                rhsValue = rhsConstraintsAndValues.get(key)
+                linprogRhsEq.append(int(rhsValue))
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
 
