@@ -198,7 +198,7 @@ def createLinprogInput():
     # Set list of cost coefficients.
     linprogObjFuncCoeffs = list(objFuncVarNamesAndCoeffs.values())
     
-    numColsConstraint = objFuncVarNamesAndCoeffs.values().count()
+    numColsConstraint = objFuncVarNamesAndCoeffs.__len__()
 
     # [constraint type,[[var name,value]]]
     for key in allConstraintNamesAndLists.keys():
@@ -233,15 +233,15 @@ def createLinprogInput():
         else:
             print("createLinprogInput(): invalid constraint type: ",value[0])
 
-    wi = numColsConstraint - linprogLhsIneq.count() 
-        while wi > 0:
-            linprogLhsIneq.append([0])
-            wi -= 1
+    wi = numColsConstraint - linprogLhsIneq.__len__() 
+    while wi > 0:
+        linprogLhsIneq.append([0])
+        wi -= 1
 
-    wi = numColsConstraint - linprogLhsEq.count() 
-        while wi > 0:
-            linprogLhsEq.append([0])
-            wi -= 1
+    wi = numColsConstraint - linprogLhsEq.__len__() 
+    while wi > 0:
+        linprogLhsEq.append([0])
+        wi -= 1
 
     # loBoundsAndValues:  {'BND1': ['LO', ['YTWO', '-1']]}
     # upBoundsAndValues:  {'BND1': ['UP', ['XONE', '4'], ['YTWO', '1']]}
